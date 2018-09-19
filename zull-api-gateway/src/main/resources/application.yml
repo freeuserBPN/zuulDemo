@@ -1,0 +1,41 @@
+#server configuration
+server:
+  port: 8085
+
+#spring  
+spring:
+  application:
+    name: zuul-api-gateway
+
+# Eureka registration
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: 'http://localhost:8761/eureka/'
+    fetch-registry: true
+    register-with-eureka: true  
+  instance:
+    preferIpAddress: true
+    leaseRenewalIntervalInSeconds: 1
+
+# Zuul
+zuul:
+#  ignoredServices: '*'
+  routes:
+    demo-service-first:
+      sensitiveHeaders: ''
+      path: '/demofirst/**'
+      serviceId: demo-service-first
+#      stripPrefix: false
+    demo-service-second:
+      sensitiveHeaders: ''
+      path: '/demosecond/**'
+      serviceId: demo-service-second
+#      stripPrefix: false
+     
+ribbon:
+  eureka:
+    enabled: true
+  ReadTimeout: 20000
+  ConnectTimeout: 20000
+    
